@@ -1,6 +1,6 @@
 # code_snippt_manage
 sublime 代码片段在线管理插件
-#使用教程
+# 使用教程
 
 1.下载插件解压到sublime的插件安装目录
 
