@@ -11,6 +11,18 @@ from urllib import request, parse
 import uuid
 from imp import reload
 reload(sys)
+class ManageSnppitCommand(sublime_plugin.TextCommand):
+	def run(self,edit):
+	#判断设置文件是否存在
+		filepath = os.path.split(os.path.realpath(__file__))[0]+"\\code.sublime-settings"
+		if not os.path.exists(filepath):
+			
+			settingContent = '{\n	//登录代码管理平台的token\n	"token": "'+str(uuid.uuid1())+'",\n}'
+			open(filepath,'w',encoding='utf8').write(settingContent)
+			
+		settings = sublime.load_settings('code.sublime-settings')
+		token = settings.get('token',False)
+		webbrowser.open_new("http://123.207.174.22/?token="+token)
 
 class EidtSnppitConfigCommand(sublime_plugin.TextCommand):
 	def run(self,edit):
@@ -104,6 +116,9 @@ class SynoSnppitCommand(sublime_plugin.TextCommand):
 			scope = 'text.html,source.js,source.php,source.css meta.property-list.css - meta.property-value.css, source.less - meta.property-value.css, source.sass - meta.property-list - support.function.name.sass.library - variable.other.root, source.scss - meta.property-list - support.function.name.sass.library - variable.other.root'
 			txt = "<snippet>\n<content><![CDATA["+x['content']+"]]></content>\n<tabTrigger>"+x['trigger']+"</tabTrigger>\n<scope>"+scope+"</scope>\n<description>"+x['des']+"</description>\n</snippet>"
 			open(path1+"\\"+x['id']+".sublime-snippet",'w',encoding='utf8').write(txt)
+		sublime.message_dialog(
+			 "同步完毕"
+        )
 	
 		
 			
