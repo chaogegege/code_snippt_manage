@@ -7,7 +7,6 @@
 			{ "caption": "新建代码片段", "command": "new_snppit" },
 			{ "caption": "同步代码片段", "command": "syno_snppit" },
 			{ "caption": "修改配置文件", "command": "eidt_snppit_config" },
-			{ "caption": "使用帮助", "command": "snppit_help" },
 		]
 	}
 ]
