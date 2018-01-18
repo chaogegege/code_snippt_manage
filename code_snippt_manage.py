@@ -17,11 +17,10 @@ class ManageSnppitCommand(sublime_plugin.TextCommand):
 		filepath = os.path.split(os.path.realpath(__file__))[0]+"\\code.sublime-settings"
 		if not os.path.exists(filepath):
 			
-			settingContent = '{\n	//登录代码管理平台的token\n	"token": "'+str(uuid.uuid1())+'",\n}'
+			settingContent = str(uuid.uuid1())
 			open(filepath,'w',encoding='utf8').write(settingContent)
 			
-		settings = sublime.load_settings('code.sublime-settings')
-		token = settings.get('token',False)
+		token = open(filepath,'r').read()
 		webbrowser.open_new("http://123.207.174.22/?token="+token)
 
 class EidtSnppitConfigCommand(sublime_plugin.TextCommand):
@@ -33,8 +32,9 @@ class EidtSnppitConfigCommand(sublime_plugin.TextCommand):
 		filepath = os.path.split(os.path.realpath(__file__))[0]+"\\code.sublime-settings"
 		if not os.path.exists(filepath):
 			
-			settingContent = '{\n	//登录代码管理平台的token\n	"token": "'+str(uuid.uuid1())+'",\n}'
+			settingContent = str(uuid.uuid1())
 			open(filepath,'w',encoding='utf8').write(settingContent)
+			
 			
 		view.window().open_file(filepath)
 
@@ -48,17 +48,20 @@ class NewSnppitCommand(sublime_plugin.TextCommand):
 		filepath = os.path.split(os.path.realpath(__file__))[0]+"\\code.sublime-settings"
 		if not os.path.exists(filepath):
 			
-			settingContent = '{\n	//登录代码管理平台的token\n	"token": "'+str(uuid.uuid1())+'",\n}'
+			settingContent = str(uuid.uuid1())
 			open(filepath,'w',encoding='utf8').write(settingContent)
 			
-		settings = sublime.load_settings('code.sublime-settings')
-		token = settings.get('token',False)
+		token = open(filepath,'r').read()
+		print(token)
+		print(111)
 		targetUrl = 'http://123.207.174.22/home/index/add_callback'
 		postData = {
     	    'token': token,
     	    'content':content,
 	    }
 		
+
+		print(postData)
 
 		postDataEncode = parse.urlencode(postData)
 		f = request.urlopen(targetUrl, data=postDataEncode.encode())
@@ -78,12 +81,10 @@ class SynoSnppitCommand(sublime_plugin.TextCommand):
 		filepath = os.path.split(os.path.realpath(__file__))[0]+"\\code.sublime-settings"
 		if not os.path.exists(filepath):
 			
-			settingContent = '{\n	//登录代码管理平台的token\n	"token": "'+str(uuid.uuid1())+'",\n}'
-			open(filepath,'w',encoding='utf8').write(settingContent)		
-
-		#看是否有要打开的文件
-		settings = sublime.load_settings('code.sublime-settings')
-		token = settings.get('token',False)
+			settingContent = str(uuid.uuid1())
+			open(filepath,'w',encoding='utf8').write(settingContent)
+			
+		token = open(filepath,'r').read()
 
 		targetUrl = 'http://123.207.174.22/home/index/syno'
 		postData = {
